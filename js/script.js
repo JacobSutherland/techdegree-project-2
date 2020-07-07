@@ -21,9 +21,10 @@ const studentList = document.querySelector('.student-list');
 const studentsLi = document.querySelectorAll('.student-item');
 const pageLength = 10;
 let startingIndex = 0;
-let pageNum;
+let endingIndex;
 
 
+console.log(studentsLi.length);
 
 
 /*** 
@@ -41,7 +42,6 @@ let pageNum;
        "invoke" the function 
 ***/
 function showPage(students, pageNum){
-   startingIndex = 0;
    endingIndex = pageLength * pageNum;
    for(let i = 0; i < students.length; i++){
          if( i >= startingIndex && i < endingIndex){
@@ -54,7 +54,8 @@ function showPage(students, pageNum){
       console.log(startingIndex, endingIndex);
 }
 
-showPage(studentsLi, 1);
+
+
 
 
 
@@ -63,9 +64,25 @@ showPage(studentsLi, 1);
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
 ***/
+function appendPageLinks(students, pageNum){
+   let numberOfBtns = Math.ceil(students.length / 10);
+   const div = document.createElement('div');
+   div.classList.add('pagination');
+   const ul = document.createElement('ul');
+   div.appendChild(ul);
+   page.appendChild(div)
+   for(let i = 0; i < numberOfBtns; i++){
+      const li = document.createElement('li');
+      const btn = document.createElement('a');
+      btn.textContent = (i);
+      li.appendChild(btn);
+      ul.appendChild(li);
+   }
+   
+   showPage(students, pageNum);
+}
 
-
-
+appendPageLinks(studentsLi, 1);
 
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
