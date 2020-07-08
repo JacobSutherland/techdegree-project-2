@@ -79,18 +79,37 @@ function appendPageLinks(students, pageNum){
       li.appendChild(btn);
       ul.appendChild(li);
    }
+   const firstButton = ul.children[0].children[0];
+   firstButton.classList.add('active');
+
    div.addEventListener('click', e => {
-      let btn;
-      let nextBtn;
-      let prevBtn;
+      // let nextBtn;
+      // let prevBtn;
+      // let button;
       if(e.target.tagName === 'A'){
-         btn = e.target;
+         const button = e.target;
+         const nextBtn = button.parentElement.nextElementSibling.children[0];
+         const prevBtn = button.parentElement.previousElementSibling.children[0];
+         const buttonValue = parseInt(button.textContent);
+         const prevBtnValue = parseInt(prevBtn.textContent);
+         const nextBtnValue = parseInt(nextBtn.textContent);
+         
+         // button.classList.add('active');
+         // pageNum += 1;
+         // startingIndex += 10;
+         // showPage(students, pageNum);
+         if(prevBtnValue === 'null' || nextBtnValue === 'null'){
+
+         } else if (buttonValue === nextBtnValue){
+            button.classList.add('active');
+            prevBtn.classList.remove('active');
+            pageNum += 1;
+            startingIndex += 10;
+            showPage(students, pageNum);
+         } 
+            
       }
-      btn.classList.toggle('active');
-         console.log('click')
-         pageNum += 1;
-         startingIndex += 10;
-   showPage(students, pageNum);
+      
    });
    
 }
