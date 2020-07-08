@@ -20,6 +20,7 @@ const page = document.querySelector('.page');
 const studentList = document.querySelector('.student-list');
 const studentsLi = document.querySelectorAll('.student-item');
 const pageLength = 10;
+let currentPage = 1;
 let startingIndex = 0;
 let endingIndex;
 
@@ -54,7 +55,7 @@ function showPage(students, pageNum){
       console.log(startingIndex, endingIndex);
 }
 
-
+showPage(studentsLi, currentPage);
 
 
 
@@ -74,15 +75,30 @@ function appendPageLinks(students, pageNum){
    for(let i = 0; i < numberOfBtns; i++){
       const li = document.createElement('li');
       const btn = document.createElement('a');
-      btn.textContent = (i);
+      btn.textContent = (i + 1);
       li.appendChild(btn);
       ul.appendChild(li);
    }
-   
+   div.addEventListener('click', e => {
+      let btn;
+      let nextBtn;
+      let prevBtn;
+      if(e.target.tagName === 'A'){
+         btn = e.target;
+      }
+      btn.classList.toggle('active');
+         console.log('click')
+         pageNum += 1;
+         startingIndex += 10;
    showPage(students, pageNum);
+   });
+   
 }
 
-appendPageLinks(studentsLi, 1);
+appendPageLinks(studentsLi, currentPage);
+
+
+
 
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
