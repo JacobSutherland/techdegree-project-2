@@ -3,21 +3,8 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
    
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
-
-
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
+//Define global variables that are referenced in functions
 const page = document.querySelector('.page');
-const studentList = document.querySelector('.student-list');
 const studentsLi = document.querySelectorAll('.student-item');
 const pageLength = 10;
 let currentPage = 1;
@@ -25,26 +12,18 @@ let startingIndex = 0;
 let endingIndex;
 
 
-console.log(studentsLi.length);
+/*
+showPage function determines how many elements are displayed per page by setting display none to elements to elements in increments of 10
+@param students - array of students 
+@param pageNum - page to show
+*/
 
 
-/*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
-
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
-***/
 function showPage(students, pageNum){
+   //sets value of ending index
    endingIndex = pageLength * pageNum;
    for(let i = 0; i < students.length; i++){
+      //creates range for starting & ending index display
          if( i >= startingIndex && i < endingIndex){
             students[i].style.display = '';
             console.log(i);
@@ -52,21 +31,22 @@ function showPage(students, pageNum){
             students[i].style.display = 'none';
          }
       }
-      console.log(startingIndex, endingIndex);
 }
-
+//initalizes page by loading page 1
 showPage(studentsLi, currentPage);
 
 
+/*
+appendPageLinks function creates and appends buttons elements to the page
+@param students - array of students
+@param pageNum - page to show
+*/
 
 
-
-/*** 
-   Create the `appendPageLinks function` to generate, append, and add 
-   functionality to the pagination buttons.
-***/
 function appendPageLinks(students, pageNum){
+   //determines the number of buttons needed based on length of array
    let numberOfBtns = Math.ceil(students.length / 10);
+   //creates and appends new button elements and parent elements
    const div = document.createElement('div');
    div.classList.add('pagination');
    const ul = document.createElement('ul');
@@ -79,65 +59,33 @@ function appendPageLinks(students, pageNum){
       li.appendChild(btn);
       ul.appendChild(li);
    }
+   //selects the first button so that it can be assigned active class by default
    const firstButton = ul.children[0].children[0];
    firstButton.classList.add('active');
 
+   //Add event listener to buttons container to utilize the event object on clicks
    div.addEventListener('click', e => {
-      // let nextBtn;
-      // let prevBtn;
-      // let button;
+      //determines if the click is happenning to the right element (links)
       if(e.target.tagName === 'A'){
-         const button = e.target;
-         // const nextBtn = button.parentElement.nextElementSibling.children[0];
-         // const prevBtn = button.parentElement.previousElementSibling.children[0];
+         const button = e.target; 
+         //gets the value of button text content as in integer
          const buttonValue = parseInt(button.textContent);
-         // const prevBtnValue = parseInt(prevBtn.textContent);
-         // const nextBtnValue = parseInt(nextBtn.textContent);
-         let lastValue = 1;
-
+         //loops through all array items and determines if it has te active class and removes it if a link is clicked
          for(let i = 0; i < ul.children.length; i++){
          
                   if(ul.children[i].children[0].className === 'active'){
                      ul.children[i].children[0].classList.remove('active');
                   }
                }
-
-         
-         // if(button.parentElement.nextElementSibling.children === null){
-            
-         //    button.classList.add('active');
-         // }
-         firstButton.classList.remove('active');
+         //adds active class to newly clicked link
          button.classList.add('active');
          
-
-
-         // if (buttonValue > lastValue){
-         //    pageNum += 1;
-         //    startingIndex += 10;
-         //    lastValue = buttonValue;
-         //    console.log('1st ' + lastValue);
-         //    showPage(students, pageNum);
-         // } 
-         // else if(buttonValue < lastValue){
-         //    nextBtn.classList.remove('active');
-         //    pageNum - 1;
-         //    startingIndex - 10;
-         //    lastValue = buttonValue;
-         //    console.log('2nd ' + lastValue);
-         //    showPage(students, pageNum);
-         // }
-            
+            //creates new formula to determine the page you want to navigate to based on the integer value of the link
+            pageNum = buttonValue;
+            startingIndex = 10 * buttonValue - 10;
+            showPage(students, pageNum);
       }
-      
    });
-   
 }
 
 appendPageLinks(studentsLi, currentPage);
-
-
-
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
