@@ -88,25 +88,45 @@ function appendPageLinks(students, pageNum){
       // let button;
       if(e.target.tagName === 'A'){
          const button = e.target;
-         const nextBtn = button.parentElement.nextElementSibling.children[0];
-         const prevBtn = button.parentElement.previousElementSibling.children[0];
+         // const nextBtn = button.parentElement.nextElementSibling.children[0];
+         // const prevBtn = button.parentElement.previousElementSibling.children[0];
          const buttonValue = parseInt(button.textContent);
-         const prevBtnValue = parseInt(prevBtn.textContent);
-         const nextBtnValue = parseInt(nextBtn.textContent);
-         
-         // button.classList.add('active');
-         // pageNum += 1;
-         // startingIndex += 10;
-         // showPage(students, pageNum);
-         if(prevBtnValue === 'null' || nextBtnValue === 'null'){
+         // const prevBtnValue = parseInt(prevBtn.textContent);
+         // const nextBtnValue = parseInt(nextBtn.textContent);
+         let lastValue = 1;
 
-         } else if (buttonValue === nextBtnValue){
-            button.classList.add('active');
-            prevBtn.classList.remove('active');
-            pageNum += 1;
-            startingIndex += 10;
-            showPage(students, pageNum);
-         } 
+         for(let i = 0; i < ul.children.length; i++){
+         
+                  if(ul.children[i].children[0].className === 'active'){
+                     ul.children[i].children[0].classList.remove('active');
+                  }
+               }
+
+         
+         // if(button.parentElement.nextElementSibling.children === null){
+            
+         //    button.classList.add('active');
+         // }
+         firstButton.classList.remove('active');
+         button.classList.add('active');
+         
+
+
+         // if (buttonValue > lastValue){
+         //    pageNum += 1;
+         //    startingIndex += 10;
+         //    lastValue = buttonValue;
+         //    console.log('1st ' + lastValue);
+         //    showPage(students, pageNum);
+         // } 
+         // else if(buttonValue < lastValue){
+         //    nextBtn.classList.remove('active');
+         //    pageNum - 1;
+         //    startingIndex - 10;
+         //    lastValue = buttonValue;
+         //    console.log('2nd ' + lastValue);
+         //    showPage(students, pageNum);
+         // }
             
       }
       
